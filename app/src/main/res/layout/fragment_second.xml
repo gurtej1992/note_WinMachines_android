@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SecondFragment">
+    tools:context=".Fragments.NoteAddFragment">
 
     <TextView
         android:id="@+id/textview_second"

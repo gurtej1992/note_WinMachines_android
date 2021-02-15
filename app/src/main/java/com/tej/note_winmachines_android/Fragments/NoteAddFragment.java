@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tej.note_winmachines_android.R;
 
-public class SecondFragment extends Fragment {
+public class NoteAddFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -28,7 +28,7 @@ public class SecondFragment extends Fragment {
         view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
+                NavHostFragment.findNavController(NoteAddFragment.this)
                         .navigate(R.id.toHome);
             }
         });
