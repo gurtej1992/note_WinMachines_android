@@ -12,7 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.tej.note_winmachines_android.Adapters.NotesAdapter;
 import com.tej.note_winmachines_android.R;
 
 public class HomeFragment extends Fragment{
@@ -20,6 +23,8 @@ public class HomeFragment extends Fragment{
     TextView txtTitle;
     ImageView imgSearch;
     ImageView imgCross;
+    RecyclerView notesRecycler;
+    String[] s1 = {"Rock","Roll","Britney","Avril","Camlia","Pickashu","Rndo","Lattu",};
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -30,6 +35,7 @@ public class HomeFragment extends Fragment{
         imgSearch = rootView.findViewById(R.id.imgSearch);
         imgCross = rootView.findViewById(R.id.imgCross);
         txtTitle = rootView.findViewById(R.id.txtTitle);
+        notesRecycler = rootView.findViewById(R.id.notesRecycler);
         txtTitle.setText("Notes");
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,18 +49,20 @@ public class HomeFragment extends Fragment{
                 Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
             }
         });
+        NotesAdapter adapter  = new NotesAdapter(getContext(),s1);
+        notesRecycler.setAdapter(adapter);
+        notesRecycler.setLayoutManager((new LinearLayoutManager(this.getContext())));
         // Inflate the layout for this fragment
         return rootView;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.toNoteDetail);
             }
         });
     }

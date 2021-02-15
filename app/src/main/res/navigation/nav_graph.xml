@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/toNoteDetail"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/toHome"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
