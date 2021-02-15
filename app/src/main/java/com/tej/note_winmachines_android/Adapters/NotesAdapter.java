@@ -16,7 +16,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     Context context;
     String[] data;
 
-    public  NotesAdapter(Context ct,String s1[]) {
+    public  NotesAdapter(Context ct, String[] s1) {
         context = ct;
         data = s1;
     }
@@ -41,7 +41,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return data.length;
     }
 
-    public class NotesViewHolder extends RecyclerView.ViewHolder {
+    public static class NotesViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle,txtDesc;
         ImageView noteImg;
          public NotesViewHolder(@NonNull View itemView) {

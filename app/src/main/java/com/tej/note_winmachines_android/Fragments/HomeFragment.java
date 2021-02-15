@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment{
         imgCross = rootView.findViewById(R.id.imgCross);
         txtTitle = rootView.findViewById(R.id.txtTitle);
         notesRecycler = rootView.findViewById(R.id.notesRecycler);
-        txtTitle.setText("Notes");
+        txtTitle.setText(R.string.notes);
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
