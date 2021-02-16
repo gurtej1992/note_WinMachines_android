@@ -13,7 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.tej.note_winmachines_android.R;
 
-public class NoteAddFragment extends Fragment {
+public class NoteAddFragment extends Fragment{
     TextView txtTitle;
     ImageView imgSearch;
     ImageView imgCross;
@@ -33,13 +33,14 @@ public class NoteAddFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
+        // ImageCross Action
+        imgCross.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(NoteAddFragment.this)
-                        .navigate(R.id.toHome);
-            }
+            public void onClick(View view) { handleBack();}
         });
+    }
+    void handleBack(){
+        NavHostFragment.findNavController(NoteAddFragment.this)
+                .navigate(R.id.toHome);
     }
 }

@@ -13,4 +13,5 @@
     <string name="notes">Notes</string>
     <string name="tool_search">tool_search</string>
     <string name="tool_cross">tool_cross</string>
+    <string name="title">Title</string>
 </resources>
