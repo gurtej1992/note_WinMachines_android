@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imgSearch"
+            android:id="@+id/rightBarButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imgCross"
+            android:id="@+id/leftBarButton"
             android:tag="@string/tool_cross"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,9 +53,9 @@
             android:textColor="@color/colorWhite"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgSearch"
+            app:layout_constraintEnd_toStartOf="@+id/rightBarButton"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgCross"
+            app:layout_constraintStart_toEndOf="@+id/leftBarButton"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,8 @@ public class HomeFragment extends Fragment{
     ) {
         View rootView = inflater.inflate(R.layout.fragment_first, container,false);
         btnAdd = rootView.findViewById(R.id.btnAdd);
-        imgSearch = rootView.findViewById(R.id.imgSearch);
-        imgCross = rootView.findViewById(R.id.imgCross);
+        imgSearch = rootView.findViewById(R.id.rightBarButton);
+        imgCross = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.txtTitle);
         notesRecycler = rootView.findViewById(R.id.notesRecycler);
         txtTitle.setText(R.string.notes);

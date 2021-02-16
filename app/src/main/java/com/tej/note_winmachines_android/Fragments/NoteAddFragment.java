@@ -15,8 +15,8 @@ import com.tej.note_winmachines_android.R;
 
 public class NoteAddFragment extends Fragment{
     TextView txtTitle;
-    ImageView imgSearch;
-    ImageView imgCross;
+    ImageView rightBarButton;
+    ImageView leftBarButton;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -24,23 +24,34 @@ public class NoteAddFragment extends Fragment{
     ) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
-        imgSearch = rootView.findViewById(R.id.imgSearch);
-        imgCross = rootView.findViewById(R.id.imgCross);
+        rightBarButton = rootView.findViewById(R.id.rightBarButton);
+        leftBarButton = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.txtTitle);
         txtTitle.setText(R.string.addNote);
+        leftBarButton.setImageResource(R.mipmap.back);
+        rightBarButton.setImageResource(R.mipmap.save);
         return rootView;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // ImageCross Action
-        imgCross.setOnClickListener(new View.OnClickListener() {
+        leftBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { handleBack();}
+        });
+        rightBarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleSave();
+            }
         });
     }
     void handleBack(){
         NavHostFragment.findNavController(NoteAddFragment.this)
                 .navigate(R.id.toHome);
+    }
+    void handleSave(){
+        
     }
 }
