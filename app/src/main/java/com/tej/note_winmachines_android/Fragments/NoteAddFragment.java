@@ -2,8 +2,11 @@ package com.tej.note_winmachines_android.Fragments;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +20,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.cazaea.sweetalert.SweetAlertDialog;
 import com.google.android.gms.location.LocationServices;
+import com.tej.note_winmachines_android.Activities.HomeActivity;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NoteAddFragment extends Fragment{
     TextView txtTitle;
@@ -29,6 +35,7 @@ public class NoteAddFragment extends Fragment{
     Double latitude,longitude;
     Button btnDelete;
     Note note;
+    Location location;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -59,7 +66,6 @@ public class NoteAddFragment extends Fragment{
              note = DBAccess.fetchNotes().get(item);
             noteTitle.setText(note.getNote_title());
             noteDesc.setText(note.getNote_desc());
-
         }
 
     }
@@ -89,10 +95,11 @@ public class NoteAddFragment extends Fragment{
                 .navigate(R.id.toHome);
     }
     void handleSave(){
+        HomeActivity home = (HomeActivity) getActivity();
         audioURL = "XX";
         imageURL = "xx";
-        latitude = 0.0;
-        longitude = 0.0;
+        longitude = home.userLocation.getLongitude();
+        latitude = home.userLocation.getLatitude();
         DBAccess.saveNote(noteTitle.getText().toString(),noteDesc.getText().toString(),audioURL,imageURL,latitude,longitude);
         clearAll();
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.SUCCESS_TYPE)

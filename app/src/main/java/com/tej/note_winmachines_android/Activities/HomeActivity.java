@@ -2,6 +2,7 @@ package com.tej.note_winmachines_android.Activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -31,20 +32,22 @@ public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     LocationManager locationManager;
     LocationListener locationListener;
-    Location user;
+    SharedPreferences sharedpreferences;
+    public Location userLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        sharedpreferences = getSharedPreferences("location", Context.MODE_PRIVATE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                user = location;
-                Toast.makeText(getApplicationContext(),""+location,Toast.LENGTH_SHORT).show();
-            }
+        locationListener = location -> {
+            userLocation = location;
+//            SharedPreferences.Editor editor = sharedpreferences.edit();
+//            editor.putFloat("longitude",(float)location.getLongitude());
+//            editor.putFloat("latitude",(float)location.getLatitude());
+//            editor.apply();
         };
         if (!hasLocationPermission())
             requestLocationPermission();
