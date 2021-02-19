@@ -63,7 +63,8 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.toNoteDetail);
             }
         });
     }

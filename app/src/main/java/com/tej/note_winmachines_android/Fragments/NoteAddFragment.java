@@ -13,11 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.developer.kalert.KAlertDialog;
+import com.cazaea.sweetalert.SweetAlertDialog;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
-
 import io.realm.Realm;
 
 public class NoteAddFragment extends Fragment{
@@ -27,7 +26,6 @@ public class NoteAddFragment extends Fragment{
     EditText noteTitle,noteDesc;
     String imageURL,audioURL;
     Double latitude,longitude;
-    Realm realm;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -59,7 +57,7 @@ public class NoteAddFragment extends Fragment{
                 handleSave();
             }
         });
-        if(getArguments().getString("item") != null){
+        if(getArguments() != null){
             int item = Integer.parseInt(getArguments().getString("item"));
             Note note = DBAccess.fetchNotes().get(item);
             noteTitle.setText(note.getNote_title());
@@ -79,9 +77,11 @@ public class NoteAddFragment extends Fragment{
         longitude = 0.0;
         DBAccess.saveNote(noteTitle.getText().toString(),noteDesc.getText().toString(),audioURL,imageURL,latitude,longitude);
         clearAll();
-        new KAlertDialog(this.getContext(), KAlertDialog.SUCCESS_TYPE)
+        new SweetAlertDialog(this.getContext(), SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Success!!")
-                .setContentText("Note Added Successfully.!")
+                .setContentText("You successfully added a note.")
+                .showCancelButton(true)
+                .setConfirmText("Yes")
                 .show();
     }
     void clearAll(){

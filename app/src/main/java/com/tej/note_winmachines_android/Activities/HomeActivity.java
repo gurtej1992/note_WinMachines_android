@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -25,8 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.content_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Realm.init(this);
-
     }
 
 }

@@ -11,7 +11,7 @@ import io.realm.annotations.Required;
 public class Note extends RealmObject {
     @PrimaryKey
     @Required
-    private int note_id;
+    private Long note_id;
     private String note_title;
     private String note_desc;
     private String note_audio;
