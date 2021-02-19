@@ -1,31 +1,30 @@
 package com.tej.note_winmachines_android.Fragments;
 
-import android.graphics.Color;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.cazaea.sweetalert.SweetAlertDialog;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
-import io.realm.Realm;
 
 public class NoteAddFragment extends Fragment{
     TextView txtTitle;
-    ImageView rightBarButton;
-    ImageView leftBarButton;
+    ImageView rightBarButton,leftBarButton;
     EditText noteTitle,noteDesc;
     String imageURL,audioURL;
     Double latitude,longitude;
+    Button btnDelete;
+    Note note;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,29 +40,44 @@ public class NoteAddFragment extends Fragment{
         rightBarButton.setImageResource(R.mipmap.save);
         noteTitle = rootView.findViewById(R.id.txtNoteTitle);
         noteDesc = rootView.findViewById(R.id.txtNoteDesc);
+        btnDelete = rootView.findViewById(R.id.buttonDeleteNote);
         return rootView;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // ImageCross Action
-        leftBarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { handleBack();}
-        });
-        rightBarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleSave();
-            }
-        });
+        leftBarButton.setOnClickListener(view1 -> handleBack());
+        rightBarButton.setOnClickListener(v -> handleSave());
+        btnDelete.setOnClickListener(View -> { handleDelete(); });
         if(getArguments() != null){
             int item = Integer.parseInt(getArguments().getString("item"));
-            Note note = DBAccess.fetchNotes().get(item);
+             note = DBAccess.fetchNotes().get(item);
             noteTitle.setText(note.getNote_title());
             noteDesc.setText(note.getNote_desc());
 
         }
+
+    }
+    void handleDelete(){
+        new SweetAlertDialog(this.getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Are you sure?")
+                .setContentText("Won't be able to recover this note!")
+                .setConfirmText("Yes,delete it!")
+                .setConfirmClickListener(sDialog -> {
+                            DBAccess.deleteNote(note,getContext());
+                            sDialog.dismiss();
+                            new SweetAlertDialog(this.getContext(),SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Deleted!")
+                                    .setContentText("Note has been deleted!")
+                                    .setCancelText("Okay")
+                                    .setCancelClickListener(Dialog ->{Dialog.dismiss(); handleBack();})
+                                    .show();
+                        }
+                       )
+                .setCancelText("No")
+                .show();
+
 
     }
     void handleBack(){

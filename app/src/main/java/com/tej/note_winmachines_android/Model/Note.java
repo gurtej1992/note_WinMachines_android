@@ -20,6 +20,24 @@ public class Note extends RealmObject {
     private Date date_modified;
     private double latitude;
     private double longitude;
+
+    public Long getNote_id() {
+        return note_id;
+    }
+
+    public void setNote_id(Long note_id) {
+        this.note_id = note_id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    private boolean isSelected = false;
     public String getNote_title() {
         return note_title;
     }

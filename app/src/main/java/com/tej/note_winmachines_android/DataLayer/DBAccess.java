@@ -1,4 +1,9 @@
 package com.tej.note_winmachines_android.DataLayer;
+import android.app.Dialog;
+import android.content.Context;
+import android.widget.Toast;
+
+import com.cazaea.sweetalert.SweetAlertDialog;
 import com.tej.note_winmachines_android.Fragments.NoteAddFragment;
 import com.tej.note_winmachines_android.Model.Note;
 
@@ -34,5 +39,10 @@ public class DBAccess {
            note.setLatitude(latitude);
            note.setLongitude(longitude);
        });
+    }
+    static public void deleteNote(Note note, Context context) {
+        realm.beginTransaction();
+        note.deleteFromRealm();
+        realm.commitTransaction();
     }
 }

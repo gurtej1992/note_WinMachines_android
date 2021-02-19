@@ -26,6 +26,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     ImageView imgSearch;
     ImageView imgCross;
     RecyclerView notesRecycler;
+    Boolean isSelectionOn;
     String[] s1 = {"Rock","Roll","Britney","Avril","Camlia","Pickashu","Rndo","Lattu",};
     @Override
     public View onCreateView(
@@ -70,10 +71,22 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     }
 
     @Override
-    public void onClickItem(int item) {
-        Bundle bundle = new Bundle();
-        bundle.putString("item",""+ item);
-        NavHostFragment.findNavController(HomeFragment.this)
-                .navigate(R.id.toNoteDetail,bundle);
+    public void onClickItem(View view, int item) {
+        Toast.makeText(this.getContext(),"Bye at"+item,Toast.LENGTH_SHORT).show();
+//        if(isSelectionOn){
+//
+//        }
+//        else{
+            Bundle bundle = new Bundle();
+            bundle.putString("item",""+ item);
+            NavHostFragment.findNavController(HomeFragment.this)
+                    .navigate(R.id.toNoteDetail,bundle);
+//        }
+
+    }
+
+    @Override
+    public void onLongClickItem(View view, int item) {
+        Toast.makeText(this.getContext(),"Hello at"+item,Toast.LENGTH_SHORT).show();
     }
 }
