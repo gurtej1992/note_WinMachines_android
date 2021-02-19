@@ -8,13 +8,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.tej.note_winmachines_android.Adapters.NotesAdapter;
 import com.tej.note_winmachines_android.Adapters.onNoteClicked;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
@@ -26,8 +24,6 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     ImageView imgSearch;
     ImageView imgCross;
     RecyclerView notesRecycler;
-    Boolean isSelectionOn;
-    String[] s1 = {"Rock","Roll","Britney","Avril","Camlia","Pickashu","Rndo","Lattu",};
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -46,12 +42,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
                 Toast.makeText(getContext(),"Search",Toast.LENGTH_SHORT).show();
             }
         });
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnAdd.setOnClickListener(v -> Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show());
         NotesAdapter adapter  = new NotesAdapter(getContext(), DBAccess.fetchNotes(),this);
         notesRecycler.setAdapter(adapter);
         notesRecycler.setLayoutManager((new LinearLayoutManager(this.getContext())));
@@ -61,13 +52,8 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.toNoteDetail);
-            }
-        });
+        btnAdd.setOnClickListener(v -> NavHostFragment.findNavController(HomeFragment.this)
+                .navigate(R.id.toNoteDetail));
     }
 
     @Override
