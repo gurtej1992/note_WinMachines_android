@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -29,13 +32,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class NoteAddFragment extends Fragment{
     TextView txtTitle;
-    ImageView rightBarButton,leftBarButton;
+    ImageView rightBarButton,leftBarButton,rightBarButton2;
     EditText noteTitle,noteDesc;
     String imageURL,audioURL;
     Double latitude,longitude;
     Button btnDelete;
     Note note;
-    Location location;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -43,12 +45,14 @@ public class NoteAddFragment extends Fragment{
     ) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+        rightBarButton2  = rootView.findViewById(R.id.rightBarButton2);
         rightBarButton = rootView.findViewById(R.id.rightBarButton);
         leftBarButton = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.toolTitle);
         txtTitle.setText(R.string.addNote);
         leftBarButton.setImageResource(R.mipmap.back);
         rightBarButton.setImageResource(R.mipmap.save);
+        rightBarButton2.setVisibility(View.VISIBLE);
         noteTitle = rootView.findViewById(R.id.txtNoteTitle);
         noteDesc = rootView.findViewById(R.id.txtNoteDesc);
         btnDelete = rootView.findViewById(R.id.buttonDeleteNote);
@@ -60,7 +64,8 @@ public class NoteAddFragment extends Fragment{
         // ImageCross Action
         leftBarButton.setOnClickListener(view1 -> handleBack());
         rightBarButton.setOnClickListener(v -> handleSave());
-        btnDelete.setOnClickListener(View -> { handleDelete(); });
+        btnDelete.setOnClickListener(View -> handleDelete());
+        rightBarButton2.setOnClickListener(v -> handleAttachment(v));
         if(getArguments() != null){
             int item = Integer.parseInt(getArguments().getString("item"));
              note = DBAccess.fetchNotes().get(item);
@@ -89,6 +94,12 @@ public class NoteAddFragment extends Fragment{
                 .show();
 
 
+    }
+    void handleAttachment(View v){
+        PopupMenu popup = new PopupMenu(getContext(), v);
+        //popup.setOnMenuItemClickListener();
+        popup.inflate(R.menu.attachment_menu);
+        popup.show();
     }
     void handleBack(){
         NavHostFragment.findNavController(NoteAddFragment.this)
