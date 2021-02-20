@@ -35,9 +35,10 @@ import com.tej.note_winmachines_android.R;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickCancel;
 import com.vansuita.pickimage.listeners.IPickResult;
 
-public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemClickListener, IPickResult {
+public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
     TextView txtTitle;
     ImageView rightBarButton,leftBarButton,rightBarButton2,addImageView;
     EditText noteTitle,noteDesc;
@@ -141,7 +142,19 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         if(menuItem.getItemId() == R.id.image_item){
-            PickImageDialog.build(new PickSetup()).show(this.getActivity());
+            PickImageDialog dialog = PickImageDialog.build(new PickSetup()).show(this.getActivity());
+            PickImageDialog.build(new PickSetup())
+                    .setOnPickResult(r -> {
+                        addImageView.setImageURI(null);
+                        cardImage.setVisibility(View.VISIBLE);
+                        //Setting the real returned image.
+                        addImageView.setImageURI(r.getUri());
+                        dialog.dismiss();
+                    })
+                    .setOnPickCancel(() -> {
+                        //TODO: do what you have to if user clicked cancel
+                    }).show(this.getParentFragmentManager());
+
 //            Intent intent = new Intent();
 //            intent.setType("image/*");
 //            intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -169,25 +182,4 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
 //        }
     }
 
-    @Override
-    public void onPickResult(PickResult r) {
-        if (r.getError() == null) {
-            //If you want the Uri.
-            //Mandatory to refresh image from Uri.
-            addImageView.setImageURI(null);
-
-            //Setting the real returned image.
-            addImageView.setImageURI(r.getUri());
-
-            //If you want the Bitmap.
-            //getImageView().setImageBitmap(r.getBitmap());
-
-            //Image path
-            //r.getPath();
-        } else {
-            //Handle possible errors
-            //TODO: do what you have to do with r.getError();
-            Toast.makeText(this.getContext(), r.getError().getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 }
