@@ -2,12 +2,15 @@ package com.tej.note_winmachines_android.Fragments;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,17 +32,21 @@ import com.tej.note_winmachines_android.Activities.HomeActivity;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickResult;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class NoteAddFragment extends Fragment{
+public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemClickListener, IPickResult {
     TextView txtTitle;
-    ImageView rightBarButton,leftBarButton,rightBarButton2;
+    ImageView rightBarButton,leftBarButton,rightBarButton2,addImageView;
     EditText noteTitle,noteDesc;
     String imageURL,audioURL;
+    //final int SELECT_PICTURE = 100;
     Double latitude,longitude;
     Button btnDelete;
     Note note;
+    CardView cardImage;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -45,6 +54,7 @@ public class NoteAddFragment extends Fragment{
     ) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+        addImageView = rootView.findViewById(R.id.addImage);
         rightBarButton2  = rootView.findViewById(R.id.rightBarButton2);
         rightBarButton = rootView.findViewById(R.id.rightBarButton);
         leftBarButton = rootView.findViewById(R.id.leftBarButton);
@@ -56,6 +66,7 @@ public class NoteAddFragment extends Fragment{
         noteTitle = rootView.findViewById(R.id.txtNoteTitle);
         noteDesc = rootView.findViewById(R.id.txtNoteDesc);
         btnDelete = rootView.findViewById(R.id.buttonDeleteNote);
+        cardImage = rootView.findViewById(R.id.cardImage);
         return rootView;
     }
 
@@ -97,7 +108,7 @@ public class NoteAddFragment extends Fragment{
     }
     void handleAttachment(View v){
         PopupMenu popup = new PopupMenu(getContext(), v);
-        //popup.setOnMenuItemClickListener();
+        popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.attachment_menu);
         popup.show();
     }
@@ -125,5 +136,58 @@ public class NoteAddFragment extends Fragment{
         noteDesc.getText().clear();
         audioURL = "";
         imageURL = "";
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.image_item){
+            PickImageDialog.build(new PickSetup()).show(this.getActivity());
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_GET_CONTENT);
+//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+
+            return true;
+        }
+        else if(menuItem.getItemId() == R.id.voice_item){
+            Toast.makeText(getContext(),"Voice",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else{
+            Toast.makeText(getContext(),"No",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == SELECT_PICTURE) {
+//            Uri selectedImageURI = data.getData();
+//            cardImage.setVisibility(View.VISIBLE);
+//            addImageView.setImageURI(selectedImageURI);
+//        }
+    }
+
+    @Override
+    public void onPickResult(PickResult r) {
+        if (r.getError() == null) {
+            //If you want the Uri.
+            //Mandatory to refresh image from Uri.
+            addImageView.setImageURI(null);
+
+            //Setting the real returned image.
+            addImageView.setImageURI(r.getUri());
+
+            //If you want the Bitmap.
+            //getImageView().setImageBitmap(r.getBitmap());
+
+            //Image path
+            //r.getPath();
+        } else {
+            //Handle possible errors
+            //TODO: do what you have to do with r.getError();
+            Toast.makeText(this.getContext(), r.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

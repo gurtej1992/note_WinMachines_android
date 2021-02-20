@@ -78,10 +78,11 @@
             android:layout_marginEnd="@dimen/cardview_margin_lr"
             android:layout_marginRight="@dimen/cardview_margin_lr"
             android:layout_marginBottom="@dimen/cardview_margin_tb"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:visibility="gone">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/addImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/cardview_margin_lr"
@@ -90,7 +91,7 @@
                 android:layout_marginEnd="@dimen/cardview_margin_lr"
                 android:layout_marginRight="@dimen/cardview_margin_lr"
                 android:layout_marginBottom="@dimen/cardview_margin_tb"
-                android:background="#673AB7"
+                android:scaleType="centerCrop"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
         </androidx.cardview.widget.CardView>
