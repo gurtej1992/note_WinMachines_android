@@ -15,9 +15,19 @@ public class Note extends RealmObject implements Serializable {
     private Long note_id;
     private String note_title;
     private String note_desc;
+    private Long subId;
     private String note_audio;
     private String note_image;
     private Date date_created;
+
+    public Long getSubId() {
+        return subId;
+    }
+
+    public void setSubId(Long subId) {
+        this.subId = subId;
+    }
+
     private Date date_modified;
     private double latitude;
     private double longitude;
