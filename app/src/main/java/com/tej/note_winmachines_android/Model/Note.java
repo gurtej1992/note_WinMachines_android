@@ -1,5 +1,6 @@
 package com.tej.note_winmachines_android.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -8,7 +9,7 @@ import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass
-public class Note extends RealmObject {
+public class Note extends RealmObject implements Serializable {
     @PrimaryKey
     @Required
     private Long note_id;

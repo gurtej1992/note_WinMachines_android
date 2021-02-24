@@ -15,4 +15,5 @@
     <string name="tool_cross">tool_cross</string>
     <string name="title">Title</string>
     <string name="delete_note">Delete Note</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

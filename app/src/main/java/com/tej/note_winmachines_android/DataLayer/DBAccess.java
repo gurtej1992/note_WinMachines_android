@@ -18,6 +18,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class DBAccess {
+
     //private static Realm realm;
     static Realm realm = Realm.getDefaultInstance();
     static public RealmResults<Note> fetchNotes(){
