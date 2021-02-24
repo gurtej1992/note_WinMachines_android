@@ -1,4 +1,4 @@
-package com.tej.note_winmachines_android.Model;
+package com.tej.note_winmachines_android;
 
 import android.Manifest;
 import android.content.Context;
