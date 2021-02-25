@@ -1,54 +1,49 @@
 package com.tej.note_winmachines_android.Fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.tej.note_winmachines_android.Activities.HomeActivity;
+import com.cazaea.sweetalert.SweetAlertDialog;
 import com.tej.note_winmachines_android.Activities.MapsActivity;
+import com.tej.note_winmachines_android.Activities.Category;
 import com.tej.note_winmachines_android.Adapters.NotesAdapter;
 import com.tej.note_winmachines_android.Adapters.onNoteClicked;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import io.realm.RealmResults;
+import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment implements onNoteClicked {
-    Button btnAdd,btnMap;
+    Button btnAdd, btnMap, btnSubjects;
     TextView txtTitle;
     ImageView imgSearch;
     ImageView imgCross;
     RecyclerView notesRecycler;
     NotesAdapter adapter;
     SearchView etsearch;
+    Dialog dialog;
 
-    Note notes;
+    ArrayList<Note> notesObj = new ArrayList<Note>();
 
-    private  static int noteid = 0;
-
-    //RealmResults<Note> notesList = new RealmResults<Note>();
-
+    private static final int noteid = 0;
 
     @Override
     public View onCreateView(
@@ -56,8 +51,9 @@ public class HomeFragment extends Fragment implements onNoteClicked {
             Bundle savedInstanceState
     ) {
 
-        View rootView = inflater.inflate(R.layout.fragment_first, container,false);
+        View rootView = inflater.inflate(R.layout.fragment_first, container, false);
         btnAdd = rootView.findViewById(R.id.btnAdd);
+        btnSubjects = rootView.findViewById(R.id.btnSubjects);
         btnMap = rootView.findViewById(R.id.btnmap);
         imgSearch = rootView.findViewById(R.id.rightBarButton);
         imgCross = rootView.findViewById(R.id.leftBarButton);
@@ -81,50 +77,28 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         });
 
 
-        imgSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // Toast.makeText(getContext(),"Search",Toast.LENGTH_SHORT).show();
-                etsearch.setVisibility(View.VISIBLE);
-            }
+        imgSearch.setOnClickListener(v -> {
+            // Toast.makeText(getContext(),"Search",Toast.LENGTH_SHORT).show();
+            etsearch.setVisibility(View.VISIBLE);
         });
-        btnAdd.setOnClickListener(v -> Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show());
-
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Note n = new Note();
-
-                Uri location = Uri.parse("geo:"+n.getLatitude() +","+n.getLongitude());
-
-               // Toast.makeText(getContext(),"Map Clicked",Toast.LENGTH_SHORT).show();
-              //  Intent i = new Intent(getContext(), MapsActivity.class);
-              //  i.put("pos",DBAccess.fetchNotes());
-              //  startActivity(i);
-
-//                Intent intent = new Intent(getContext(), MapsActivity.class);
-//                intent.setData(location);
-//
-//                Log.d("HomeFRagment", "onClick: "+location);
-//
-//                Bundle args = new Bundle();
-//               // args.putSerializable("ARRAYLIST",(Serializable));
-//                intent.putExtra("BUNDLE",args);
-//                startActivity(intent);
-
-
-            }
+        btnSubjects.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), Category.class);
+            startActivity(intent);
         });
 
-        adapter  = new NotesAdapter(getContext(), DBAccess.fetchNotes(),this);
+        btnMap.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MapsActivity.class);
+            intent.putExtra("allNotes", "yes");
+            startActivity(intent);
+        });
+
+        adapter = new NotesAdapter(getContext(), DBAccess.fetchNotes(), this);
+
         notesRecycler.setAdapter(adapter);
         notesRecycler.setLayoutManager((new LinearLayoutManager(this.getContext())));
         // Inflate the layout for this fragment
         return rootView;
     }
-
-
 
 
 /*
@@ -155,22 +129,60 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
     @Override
     public void onClickItem(View view, int item) {
-        Toast.makeText(this.getContext(),"Bye at"+item,Toast.LENGTH_SHORT).show();
-//        if(isSelectionOn){
-//
-//        }
-//        else{
-            Bundle bundle = new Bundle();
-            bundle.putString("item",""+ item);
-            NavHostFragment.findNavController(HomeFragment.this)
-                    .navigate(R.id.toNoteDetail,bundle);
-//        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("item", "" + item);
+        NavHostFragment.findNavController(HomeFragment.this)
+                .navigate(R.id.toNoteDetail, bundle);
 
     }
 
     @Override
     public void onLongClickItem(View view, int item) {
-        Toast.makeText(this.getContext(),"Hello at"+item,Toast.LENGTH_SHORT).show();
+        mapDialog(adapter.getData().get(item), item);
+    }
 
+    Note note;
+
+    public void mapDialog(Note note, int pos) {
+        note = adapter.data.get(pos);
+        dialog = new Dialog((requireContext()));
+        dialog.setContentView(R.layout.maponlong_layout);
+        Button btnmap = dialog.findViewById(R.id.btn_navigate);
+        Button btnMove = dialog.findViewById(R.id.btnMove);
+        ImageView img_move_delete = dialog.findViewById(R.id.img_move_delete);
+
+        btnmap.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MapsActivity.class);
+//            intent.putExtra("note", note);
+            intent.putExtra("pos", pos);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+        btnMove.setOnClickListener(v -> {
+            startActivityForResult(new Intent(requireContext(), Category.class).putExtra("from", "addNote"), 200);
+
+            dialog.dismiss();
+        });
+        img_move_delete.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+//            note.setSubId(data.getLongExtra("selectedSubjectId", -1L));
+            DBAccess.updateNote(note.getNote_id(),data.getLongExtra("selectedSubjectId", -1L));
+            new SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Success!!")
+                    .setContentText("You successfully moved a note.")
+                    .showCancelButton(true)
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener(sweetAlertDialog -> {
+                        sweetAlertDialog.dismissWithAnimation();
+                    })
+                    .show();
+        }
     }
 }

@@ -22,15 +22,14 @@ import androidx.core.app.ActivityCompat;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
-public class HomeActivity extends AppCompatActivity {
+//430162f7e5f44fcc107bf6e2ee911cadbe2a3aba
 
+public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     LocationManager locationManager;
     SharedPreferences sharedpreferences;
     public static Location userLocation;
-
     private final LocationListener locationListener = location -> {
-
         userLocation = location;
         //your code here
     };

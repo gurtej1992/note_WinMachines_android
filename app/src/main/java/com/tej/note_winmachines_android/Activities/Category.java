@@ -11,13 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cazaea.sweetalert.SweetAlertDialog;
 import com.tej.note_winmachines_android.Adapters.SubjectsAdapter;
 import com.tej.note_winmachines_android.Adapters.onNoteClicked;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
+import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
+
+import io.realm.RealmResults;
 
 public class Category extends AppCompatActivity {
     TextView txtTitle;
@@ -53,6 +57,7 @@ public class Category extends AppCompatActivity {
                 if (getIntent().hasExtra("from")) {
                     Intent intent = new Intent();
                     intent.putExtra("selectedSubjectId", adapter.data.get(item).getSubId());
+                    intent.putExtra("selectedSubjectName", adapter.data.get(item).getSubjectName());
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
@@ -74,7 +79,7 @@ public class Category extends AppCompatActivity {
     private void openAddSubjectDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_subject);
-        Button btAddSubject = dialog.findViewById(R.id.btAddCategory);
+        Button btAddSubject = dialog.findViewById(R.id.btAddSubject);
         EditText etSubjectName = dialog.findViewById(R.id.etSubjectName);
         ImageView ivDismiss = dialog.findViewById(R.id.ivDismiss);
         ivDismiss.setOnClickListener(view -> dialog.dismiss());
@@ -82,26 +87,26 @@ public class Category extends AppCompatActivity {
             if (etSubjectName.getText().toString().trim().isEmpty()) {
                 Toast.makeText(Category.this, "Please enter subject name", Toast.LENGTH_LONG).show();
             } else {
-                saveSubject(etSubjectName.getText().toString().trim());
-                dialog.dismiss();
+                saveSubject(etSubjectName.getText().toString().trim(), dialog);
             }
         });
 
         dialog.show();
     }
 
-    private void saveSubject(String subjectName) {
-        DBAccess.saveSubject(subjectName);
-
-        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Success!!")
-                .setContentText("You successfully added a subject.")
-                .showCancelButton(true)
-                .setConfirmText("Yes")
-                .setConfirmClickListener(sweetAlertDialog -> {
-                    setAdapter();
-                    sweetAlertDialog.dismissWithAnimation();
-                })
-                .show();
+    private void saveSubject(String subjectName, Dialog dialog) {
+        if( DBAccess.saveSubject(subjectName, this)){
+            dialog.dismiss();
+            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Success!!")
+                    .setContentText("You successfully added a subject.")
+                    .showCancelButton(true)
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener(sweetAlertDialog -> {
+                        setAdapter();
+                        sweetAlertDialog.dismissWithAnimation();
+                    })
+                    .show();
+        }
     }
 }

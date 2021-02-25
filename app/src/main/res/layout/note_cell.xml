@@ -37,22 +37,39 @@
                 android:id="@+id/txtDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
                 android:fontFamily="@font/nunito"
+                android:padding="5dp"
                 android:text="TextView"
                 android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/tvLat"
                 app:layout_constraintStart_toStartOf="@+id/toolTitle"
                 app:layout_constraintTop_toBottomOf="@+id/toolTitle" />
+
             <TextView
-                android:id="@+id/tvLatLong"
+                android:id="@+id/tvLat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
                 android:fontFamily="@font/nunito"
+                android:padding="5dp"
+                android:visibility="gone"
                 android:text=""
                 android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/tvLong"
                 app:layout_constraintStart_toStartOf="@+id/toolTitle"
                 app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+            <TextView
+                android:id="@+id/tvLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito"
+                android:visibility="gone"
+                android:padding="5dp"
+                android:text=""
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/toolTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvLat" />
 
             <TextView
                 android:id="@+id/toolTitle"
@@ -60,10 +77,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/nunito_semibold"
+                android:padding="5dp"
                 android:text="TextView"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/txtDesc"
                 app:layout_constraintStart_toEndOf="@+id/noteImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
