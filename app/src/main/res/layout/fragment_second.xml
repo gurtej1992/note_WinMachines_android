@@ -58,14 +58,11 @@
                     android:inputType="textPersonName" />
 
                 <Button
-                    android:id="@+id/btSelectCategory"
+                    android:id="@+id/btSelectSubject"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:textColor="@color/colorWhite"
-                    android:background="@mipmap/topbar"
-                    android:text="Select Category"
-                    android:textAllCaps="false" />
-
+                    android:layout_height="wrap_content"
+android:text="Select Subject"
+                    android:textAllCaps="false"/>
                 <EditText
                     android:id="@+id/txtNoteDesc"
                     android:layout_width="match_parent"
