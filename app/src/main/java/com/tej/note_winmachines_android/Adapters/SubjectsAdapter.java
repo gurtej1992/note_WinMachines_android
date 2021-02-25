@@ -33,15 +33,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.VH> {
         this.onNoteClicked = onNoteClicked;
     }
 
-    @NonNull
-    @Override
-    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cateogy_item, parent, false);
-        return new VH(view);
-    }
-
-
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         holder.tvSubject.setText("Name: " + data.get(position).getSubjectName());
@@ -52,6 +43,15 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.VH> {
             onNoteClicked.onClickItem(view, position);
         });
     }
+
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.cateogy_item, parent, false);
+        return new VH(view);
+    }
+
 
 
     @Override
