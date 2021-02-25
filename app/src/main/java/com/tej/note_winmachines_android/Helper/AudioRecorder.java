@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class AudioRecorder {
 
-    final MediaRecorder recorder = new MediaRecorder();
+    MediaRecorder recorder = new MediaRecorder();
     public final String path;
     MediaPlayer mp = new MediaPlayer();
 
@@ -59,6 +59,7 @@ public class AudioRecorder {
     public void stop() {
         recorder.stop();
         recorder.release();
+        recorder = null;
     }
 
     public void playOrStopRecording(String path) throws IOException {
