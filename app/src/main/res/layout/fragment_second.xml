@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/contraintAddScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.NoteAddFragment">
@@ -58,11 +57,20 @@
                     android:hint="@string/title"
                     android:inputType="textPersonName" />
 
+                <Button
+                    android:id="@+id/btSelectCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@mipmap/topbar"
+                    android:text="Select Category"
+                    android:textAllCaps="false" />
+
                 <EditText
                     android:id="@+id/txtNoteDesc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#DADADA"
+                    android:background="#BAB8B8"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
@@ -79,11 +87,10 @@
             android:layout_marginEnd="@dimen/cardview_margin_lr"
             android:layout_marginRight="@dimen/cardview_margin_lr"
             android:layout_marginBottom="@dimen/cardview_margin_tb"
-            android:layout_weight="3"
-            android:visibility="gone">
+            android:layout_weight="3">
 
             <ImageView
-                android:id="@+id/addImage"
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/cardview_margin_lr"
@@ -92,33 +99,23 @@
                 android:layout_marginEnd="@dimen/cardview_margin_lr"
                 android:layout_marginRight="@dimen/cardview_margin_lr"
                 android:layout_marginBottom="@dimen/cardview_margin_tb"
-                android:scaleType="centerCrop"
+                android:background="#673AB7"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/cardview_margin_lr"
             android:layout_marginLeft="@dimen/cardview_margin_lr"
             android:layout_marginTop="@dimen/cardview_margin_tb"
             android:layout_marginEnd="@dimen/cardview_margin_lr"
             android:layout_marginRight="@dimen/cardview_margin_lr"
             android:layout_marginBottom="@dimen/cardview_margin_tb"
-            android:layout_weight="0"
-            android:background="@mipmap/topbar">
+            android:layout_weight="0.5"
+            android:background="#DC1F1F">
 
-            <ImageButton
-                android:id="@+id/btnAudio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@mipmap/record_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button

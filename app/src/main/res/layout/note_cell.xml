@@ -37,12 +37,22 @@
                 android:id="@+id/txtDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10sp"
                 android:fontFamily="@font/nunito"
                 android:text="TextView"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="@+id/toolTitle"
                 app:layout_constraintTop_toBottomOf="@+id/toolTitle" />
+            <TextView
+                android:id="@+id/tvLatLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:fontFamily="@font/nunito"
+                android:text=""
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/toolTitle"
+                app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
 
             <TextView
                 android:id="@+id/toolTitle"
@@ -50,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/nunito_semibold"
                 android:text="TextView"
                 android:textSize="20sp"

@@ -1,5 +1,6 @@
 package com.tej.note_winmachines_android.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -8,15 +9,25 @@ import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass
-public class Note extends RealmObject {
+public class Note extends RealmObject implements Serializable {
     @PrimaryKey
     @Required
     private Long note_id;
     private String note_title;
     private String note_desc;
+    private Long subId;
     private String note_audio;
     private String note_image;
     private Date date_created;
+
+    public Long getSubId() {
+        return subId;
+    }
+
+    public void setSubId(Long subId) {
+        this.subId = subId;
+    }
+
     private Date date_modified;
     private double latitude;
     private double longitude;
