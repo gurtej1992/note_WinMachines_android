@@ -3,9 +3,12 @@ package com.tej.note_winmachines_android.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.tej.note_winmachines_android.R;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -18,21 +21,16 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Realm.init(this);
-        {
-            try{
-                Realm.getDefaultInstance();
-
-            }catch (Exception e){
-
-                // Get a Realm instance for this thread
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                        .deleteRealmIfMigrationNeeded()
-                        .build();
-                Realm.getInstance(config);
-            }
+        try {
+            Realm.getDefaultInstance();
+        } catch (Exception e) {
+            // Get a Realm instance for this thread
+            RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded()
+                    .build();
+            Realm.getInstance(config);
         }
         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         finish();
     }
-    }
+}
 
