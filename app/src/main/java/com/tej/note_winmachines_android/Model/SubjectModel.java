@@ -12,6 +12,7 @@ import io.realm.annotations.Required;
 public class SubjectModel extends RealmObject implements Serializable {
     @PrimaryKey
     @Required
+
     private Long subId;
 
     public Long getSubId() {
