@@ -51,10 +51,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         holder.bind(data.get(position));
-        holder.txtTitle.setText("Title: " + data.get(position).getNote_title());
-        holder.txtDesc.setText("Description: " + data.get(position).getNote_desc());
-        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
-        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
+        holder.txtTitle.setText(data.get(position).getNote_title());
+        holder.txtDesc.setText(data.get(position).getNote_desc());
+//        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
+//        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
         holder.noteCardView.setOnLongClickListener(v -> {
             mCallback.onLongClickItem(v, position);
             // mCallback.onLongClickItem(view, position);
