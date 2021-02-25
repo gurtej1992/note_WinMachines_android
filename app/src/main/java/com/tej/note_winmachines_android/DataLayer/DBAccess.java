@@ -1,8 +1,10 @@
 package com.tej.note_winmachines_android.DataLayer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.Toast;
 
+import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.Model.SubjectModel;
 
@@ -32,7 +34,8 @@ public class DBAccess {
         return realm.where(SubjectModel.class).findAll();
     }
 
-    static public void saveNote(String noteTitle, String noteDesc, String noteAudio, String noteImage, Double latitude, Double longitude, Long selectedSubjectId) {
+    static public void saveNote(String noteTitle, String noteDesc, String noteAudio, Bitmap noteImage, Double latitude, Double longitude, Long selectedSubjectId) {
+
         realm.executeTransaction(realm -> {
             Number maxId = realm.where(Note.class).max("note_id");
             int nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
@@ -42,7 +45,9 @@ public class DBAccess {
             note.setDate_created(new Date());
             note.setDate_modified(new Date());
             note.setNote_audio(noteAudio);
-            note.setNote_image(noteImage);
+            if(noteImage != null){
+                note.setNote_image(Helper.ImageToByte(noteImage));
+            }
             note.setLatitude(latitude);
             note.setLongitude(longitude);
             note.setSubId(selectedSubjectId);

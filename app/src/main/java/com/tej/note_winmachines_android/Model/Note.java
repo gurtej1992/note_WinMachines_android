@@ -1,6 +1,7 @@
 package com.tej.note_winmachines_android.Model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -17,8 +18,24 @@ public class Note extends RealmObject implements Serializable {
     private String note_desc;
     private Long subId;
     private String note_audio;
-    private String note_image;
+    private byte[] note_image;
     private Date date_created;
+
+    public byte[] getNote_image() {
+        return note_image;
+    }
+
+    public void setNote_image(byte[] note_image) {
+        this.note_image = note_image;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Long getSubId() {
         return subId;
@@ -75,13 +92,6 @@ public class Note extends RealmObject implements Serializable {
         this.note_audio = note_audio;
     }
 
-    public String getNote_image() {
-        return note_image;
-    }
-
-    public void setNote_image(String note_image) {
-        this.note_image = note_image;
-    }
 
     public Date getDate_created() {
         return date_created;

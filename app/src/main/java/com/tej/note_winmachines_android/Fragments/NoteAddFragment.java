@@ -3,6 +3,7 @@ package com.tej.note_winmachines_android.Fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,12 +29,14 @@ import com.tej.note_winmachines_android.Activities.HomeActivity;
 import com.tej.note_winmachines_android.Activities.Category;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Helper.AudioRecorder;
+import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 
 import java.io.IOException;
+import java.net.URI;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,10 +44,11 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
     TextView txtTitle;
     ImageView rightBarButton, leftBarButton, rightBarButton2,addImageView;
     EditText noteTitle, noteDesc;
-    String imageURL, audioURL;
+    String audioURL;
     Double latitude = 0.0, longitude = 0.0;
     Button btnDelete, btSelectSubject;
     ImageButton btnAudio;
+    Bitmap selectedImage;
     Note note;
     Long selectedSubjectId = -1L;
     CardView cardImage;
@@ -108,6 +112,10 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             note = DBAccess.fetchNotes().get(item);
             noteTitle.setText(note.getNote_title());
             noteDesc.setText(note.getNote_desc());
+            if(note.getNote_image()!= null){
+                cardImage.setVisibility(View.VISIBLE);
+                addImageView.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
+            }
         }
         ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION);
          r = new AudioRecorder("abc");
@@ -232,7 +240,6 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
     void handleSave(){
         HomeActivity home = (HomeActivity) getActivity();
         audioURL = "XX";
-        imageURL = "xx";
        /* LocationUtil.getLastLocation(requireContext(), location -> {
             longitude = location.getLongitude();
             latitude = location.getLatitude();
@@ -243,7 +250,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             longitude = HomeActivity.userLocation.getLongitude();
             latitude = HomeActivity.userLocation.getLatitude();
         }
-        DBAccess.saveNote(noteTitle.getText().toString(), noteDesc.getText().toString(), audioURL, imageURL, latitude, longitude, selectedSubjectId);
+        DBAccess.saveNote(noteTitle.getText().toString(), noteDesc.getText().toString(), audioURL,selectedImage, latitude, longitude, selectedSubjectId);
         clearAll();
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Success!!")
@@ -264,7 +271,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         noteTitle.getText().clear();
         noteDesc.getText().clear();
         audioURL = "";
-        imageURL = "";
+        selectedImage = null;
     }
 
     @Override
@@ -277,6 +284,8 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
                         cardImage.setVisibility(View.VISIBLE);
                         //Setting the real returned image.
                         addImageView.setImageURI(r.getUri());
+                        selectedImage = r.getBitmap();
+
                         dialog.dismiss();
                     })
                     .setOnPickCancel(() -> {

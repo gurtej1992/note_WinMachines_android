@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
@@ -50,9 +51,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
-        holder.bind(data.get(position));
-        holder.txtTitle.setText(data.get(position).getNote_title());
-        holder.txtDesc.setText(data.get(position).getNote_desc());
+        Note note = data.get(position);
+        holder.bind(note);
+        holder.txtTitle.setText(note.getNote_title());
+        holder.txtDesc.setText(note.getNote_desc());
+        if (note.getNote_image() != null){
+            holder.noteImg.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
+        }
 //        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
 //        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
         holder.noteCardView.setOnLongClickListener(v -> {
@@ -118,6 +123,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             txtDesc = itemView.findViewById(R.id.txtDesc);
             tvLat = itemView.findViewById(R.id.tvLat);
             tvLong = itemView.findViewById(R.id.tvLong);
+            noteImg = itemView.findViewById(R.id.noteImg);
             selectImg = itemView.findViewById(R.id.imgNoteSelect);
             noteCardView = itemView.findViewById(R.id.noteCardView);
             this.mCallback = mCallback;
