@@ -29,7 +29,7 @@ public class Category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.subjects);
+        setContentView(R.layout.category);
         txtTitle = findViewById(R.id.toolTitle);
         imgCross = findViewById(R.id.leftBarButton);
         btnAdd = findViewById(R.id.btnAdd);
