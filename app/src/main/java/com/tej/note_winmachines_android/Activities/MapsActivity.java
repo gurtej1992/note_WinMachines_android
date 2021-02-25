@@ -25,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static final String TAG = "MapsActivity";
 
+
     private Marker marker1;
 
     @Override
@@ -38,7 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    //Getting Data using intent
     private void getIntentData() {
         if (getIntent().hasExtra("allNotes")) {
             RealmResults<Note> realmNotes = DBAccess.fetchNotes();
