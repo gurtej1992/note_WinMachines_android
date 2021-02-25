@@ -1,6 +1,8 @@
 package com.tej.note_winmachines_android.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
@@ -58,6 +62,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         if (note.getNote_image() != null){
             holder.noteImg.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
         }
+
 //        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
 //        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
         holder.noteCardView.setOnLongClickListener(v -> {
@@ -68,6 +73,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             return false;
         });
         holder.noteCardView.setOnClickListener(view -> mCallback.onClickItem(view, position));
+        List<Bitmap> img = new ArrayList();
+        img.add(Helper.ByteToImage(note.getNote_image()));
+//        holder.noteImg.setOnClickListener(v->{
+//            new ImageViewer.Builder(context, img)
+//                    .setStartPosition(0)
+//                    .show();
+//        });
 
 
     }

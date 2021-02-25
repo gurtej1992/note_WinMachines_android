@@ -22,68 +22,66 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <ImageView
                 android:id="@+id/noteImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/txtDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@id/tvLat"
-                app:layout_constraintStart_toStartOf="@+id/toolTitle"
-                app:layout_constraintTop_toBottomOf="@+id/toolTitle" />
-
-            <TextView
-                android:id="@+id/tvLat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
-                android:padding="5dp"
-                android:visibility="gone"
-                android:text=""
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@id/tvLong"
-                app:layout_constraintStart_toStartOf="@+id/toolTitle"
-                app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
-
-            <TextView
-                android:id="@+id/tvLong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
-                android:visibility="gone"
-                android:padding="5dp"
-                android:text=""
-                android:textSize="15sp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/toolTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+                app:layout_constraintEnd_toStartOf="@+id/noteImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/toolTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/nunito_semibold"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@id/txtDesc"
-                app:layout_constraintStart_toEndOf="@+id/noteImg"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/txtNoteDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="TextView"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/toolTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:maxLines="2"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="TextView"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txtNoteSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
+                    android:text="TextView"
+                    android:textStyle="italic" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imgNoteSelect"
