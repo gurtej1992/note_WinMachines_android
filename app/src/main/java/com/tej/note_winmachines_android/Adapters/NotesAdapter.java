@@ -13,14 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tej.note_winmachines_android.Activities.HomeActivity;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
@@ -31,11 +29,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     public RealmResults<Note> data;
     List<Note> filteredNotes;
 
-    public RealmResults<Note> getData(){
+    public RealmResults<Note> getData() {
         return data;
     }
-
-    static Realm realm = Realm.getDefaultInstance();
 
     public NotesAdapter(Context ct, RealmResults<Note> s1, onNoteClicked listener) {
         context = ct;
@@ -55,9 +51,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         holder.bind(data.get(position));
-        holder.txtTitle.setText(data.get(position).getNote_title());
-        holder.txtDesc.setText(data.get(position).getNote_desc());
-        holder.tvLatLong.setText(data.get(position).getLatitude() + "/" + data.get(position).getLongitude());
+        holder.txtTitle.setText("Title: " + data.get(position).getNote_title());
+        holder.txtDesc.setText("Description: " + data.get(position).getNote_desc());
+        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
+        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
         holder.noteCardView.setOnLongClickListener(v -> {
             mCallback.onLongClickItem(v, position);
             // mCallback.onLongClickItem(view, position);
@@ -110,7 +107,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     public static class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        TextView txtTitle, txtDesc, tvLatLong;
+        TextView txtTitle, txtDesc, tvLat, tvLong;
         ImageView noteImg, selectImg;
         onNoteClicked mCallback;
         CardView noteCardView;
@@ -119,12 +116,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             super(itemView);
             txtTitle = itemView.findViewById(R.id.toolTitle);
             txtDesc = itemView.findViewById(R.id.txtDesc);
-            tvLatLong = itemView.findViewById(R.id.tvLatLong);
+            tvLat = itemView.findViewById(R.id.tvLat);
+            tvLong = itemView.findViewById(R.id.tvLong);
             selectImg = itemView.findViewById(R.id.imgNoteSelect);
             noteCardView = itemView.findViewById(R.id.noteCardView);
             this.mCallback = mCallback;
 
         }
+
 
         void bind(final Note note) {
             selectImg.setVisibility(note.isSelected() ? View.VISIBLE : View.GONE);
@@ -149,7 +148,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         }
         return selected;
     }
-
 
 
 }

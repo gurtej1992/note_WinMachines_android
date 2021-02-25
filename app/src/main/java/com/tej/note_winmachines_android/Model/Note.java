@@ -31,6 +31,7 @@ public class Note extends RealmObject implements Serializable {
     private Date date_modified;
     private double latitude;
     private double longitude;
+    private Date date;
 
     public Long getNote_id() {
         return note_id;
@@ -60,6 +61,7 @@ public class Note extends RealmObject implements Serializable {
     public String getNote_desc() {
         return note_desc;
     }
+
 
     public void setNote_desc(String note_desc) {
         this.note_desc = note_desc;

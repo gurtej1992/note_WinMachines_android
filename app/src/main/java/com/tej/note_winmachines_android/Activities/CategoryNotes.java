@@ -22,7 +22,6 @@ import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
 public class CategoryNotes extends AppCompatActivity {
-
     Button btnAdd;
     TextView txtTitle;
     ImageView imgSearch;

@@ -1,9 +1,9 @@
 package com.tej.note_winmachines_android.DataLayer;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.tej.note_winmachines_android.Model.Note;
-import com.tej.note_winmachines_android.Activities.CategoryNotes;
 import com.tej.note_winmachines_android.Model.SubjectModel;
 
 import java.util.Date;
@@ -49,7 +49,12 @@ public class DBAccess {
         });
     }
 
-    static public void saveSubject(String subjectName) {
+    static public boolean saveSubject(String subjectName, Context context) {
+        boolean isSubjectExist = realm.where(SubjectModel.class).equalTo("subjectName", subjectName.toLowerCase()).findAll().size() != 0;
+        if (isSubjectExist) {
+            Toast.makeText(context, "Subject already exist", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         realm.executeTransaction(realm -> {
             Number maxId = realm.where(SubjectModel.class).max("subId");
             int nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
@@ -57,6 +62,7 @@ public class DBAccess {
             subModel.setSubjectName(subjectName);
             subModel.setDate(new Date());
         });
+        return true;
     }
 
     static public void updateNote(Long noteId, Long subId) {
