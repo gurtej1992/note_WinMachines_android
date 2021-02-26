@@ -196,7 +196,7 @@ private void filter(String text) {
     Note note;
 
     public void mapDialog(Note note, int pos) {
-        note = adapter.data.get(pos);
+        this.note = adapter.data.get(pos);
         dialog = new Dialog((requireContext()));
         dialog.setContentView(R.layout.maponlong_layout);
         Button btnmap = dialog.findViewById(R.id.btn_navigate);
