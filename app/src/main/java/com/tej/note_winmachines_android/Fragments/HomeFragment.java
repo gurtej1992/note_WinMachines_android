@@ -31,6 +31,7 @@ import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     NotesAdapter adapter;
     EditText etsearch;
     Dialog dialog;
+    List<Note> listNotes;
 
     ArrayList<Note> notesObj = new ArrayList<Note>();
 
@@ -108,6 +110,8 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         // Inflate the layout for this fragment
         return rootView;
     }
+
+   
 
 
 /*

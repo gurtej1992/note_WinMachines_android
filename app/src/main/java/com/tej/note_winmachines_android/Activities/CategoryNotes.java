@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class CategoryNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.category_notes);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         btnAdd = findViewById(R.id.btnAdd);
         imgSearch = findViewById(R.id.rightBarButton);
         imgCross = findViewById(R.id.leftBarButton);
