@@ -312,6 +312,10 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             Toast.makeText(getContext(),"Voice",Toast.LENGTH_SHORT).show();
             return true;
         }
+        else if(menuItem.getItemId() == R.id.file_item){
+            Toast.makeText(getContext(),"File",Toast.LENGTH_SHORT).show();
+            return true;
+        }
         else{
             Toast.makeText(getContext(),"No",Toast.LENGTH_SHORT).show();
             return false;

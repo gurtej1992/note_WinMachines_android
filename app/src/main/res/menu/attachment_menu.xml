@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/image_item"
-        android:title="Image" />
+        android:title="@string/add_image" />
     <item android:id="@+id/voice_item"
-        android:title="Voice Recording" />
-<!--    <item android:id="@+id/copy_item"-->
-<!--        android:title="Copy" />-->
-<!--    <item android:id="@+id/print_item"-->
-<!--        android:title="Print" />-->
-<!--    <item android:id="@+id/share_item"-->
-<!--        android:title="Share" />-->
-<!--    <item android:id="@+id/bookmark_item"-->
-<!--        android:title="BookMark" />-->
+        android:title="@string/add_voice_recording" />
+    <item android:id="@+id/file_item"
+        android:title="@string/add_audio_file" />
 </menu>

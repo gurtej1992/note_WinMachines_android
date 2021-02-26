@@ -18,5 +18,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="subjects">Subjects</string>
     <string name="select_subject_btn">Select Subject</string>
+    <string name="add_audio_file">Add Audio File</string>
+    <string name="add_voice_recording">Add Voice Recording</string>
+    <string name="add_image">Add Image</string>
 
 </resources>
