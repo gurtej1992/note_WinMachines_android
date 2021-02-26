@@ -41,6 +41,10 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.VH> {
         holder.cvSubject.setOnClickListener(view -> {
             onNoteClicked.onClickItem(view, position);
         });
+        holder.itemView.setOnLongClickListener(v ->{
+//adapter
+            return true;
+        });
     }
 
     @NonNull

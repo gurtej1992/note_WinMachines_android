@@ -26,11 +26,11 @@ public class AudioRecorder {
             path += ".3gp";
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return Environment.getStorageDirectory().getAbsolutePath()
+            return Environment.getDownloadCacheDirectory().getAbsolutePath()
                     + path;
         }
         else{
-            return Environment.getExternalStorageDirectory().getAbsolutePath()
+            return Environment.getDownloadCacheDirectory().getAbsolutePath()
                     + path;
         }
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     RecyclerView notesRecycler;
     NotesAdapter adapter;
     EditText etsearch;
+    LinearLayout searchLayout;
     Dialog dialog;
     List<Note> listNotes;
 
@@ -66,6 +68,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         txtTitle = rootView.findViewById(R.id.toolTitle);
         notesRecycler = rootView.findViewById(R.id.notesRecycler);
         etsearch = rootView.findViewById(R.id.search_txt);
+        searchLayout = rootView.findViewById(R.id.search_layout);
         txtTitle.setText(R.string.notes);
 
         etsearch.addTextChangedListener(new TextWatcher() {
@@ -87,11 +90,11 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
 
         imgSearch.setOnClickListener(v -> {
-            if(etsearch.getVisibility() == View.VISIBLE){
-                etsearch.setVisibility(View.GONE);
+            if(searchLayout.getVisibility() == View.VISIBLE){
+                searchLayout.setVisibility(View.GONE);
             }
             else{
-                etsearch.setVisibility(View.VISIBLE);
+                searchLayout.setVisibility(View.VISIBLE);
             }
 
         });

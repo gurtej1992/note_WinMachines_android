@@ -226,16 +226,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             if (resultCode == RESULT_OK && requestCode == SELECT_MUSIC) {
                     Uri selectedMusicUri = data.getData();
                     if (selectedMusicUri != null){
-                        String pathFromUri = getRealPathFromURI(getContext(), selectedMusicUri);
-                        MediaPlayer mp = new MediaPlayer();
-                        try {
-                            mp.setDataSource(getContext(), Uri.parse(pathFromUri));
-                            mp.prepare();
-                            mp.start();
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                         audioURL = getRealPathFromURI(getContext(), selectedMusicUri);
                     }
                 }
         }
@@ -287,7 +278,6 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         else{
             s = "You successfully added a note.";
             HomeActivity home = (HomeActivity) getActivity();
-            audioURL = "XX";
             if (HomeActivity.userLocation != null) {
                 longitude = HomeActivity.userLocation.getLongitude();
                 latitude = HomeActivity.userLocation.getLatitude();
