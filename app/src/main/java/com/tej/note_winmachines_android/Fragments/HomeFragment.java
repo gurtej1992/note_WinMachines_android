@@ -29,6 +29,8 @@ import com.tej.note_winmachines_android.R;
 
 import java.util.ArrayList;
 
+import nz.co.trademe.covert.Covert;
+
 import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment implements onNoteClicked {

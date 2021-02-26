@@ -107,18 +107,27 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         btnDelete.setOnClickListener(View -> handleDelete());
         rightBarButton2.setOnClickListener(this::handleAttachment);
         btnAudio.setOnClickListener(this::handleAudio);
+
         if(getArguments() != null){
-            int item = Integer.parseInt(getArguments().getString("item"));
-            note = DBAccess.fetchNotes().get(item);
-            noteTitle.setText(note.getNote_title());
-            noteDesc.setText(note.getNote_desc());
-            if(note.getNote_image()!= null){
-                cardImage.setVisibility(View.VISIBLE);
-                addImageView.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
-            }
+            // Edit Existing note
+            getDetailsOfExistingNote();
         }
         ActivityCompat.requestPermissions(getActivity(), permissions, REQUEST_RECORD_AUDIO_PERMISSION);
          r = new AudioRecorder("abc");
+    }
+
+    private void getDetailsOfExistingNote() {
+        assert getArguments() != null;
+        int item = Integer.parseInt(getArguments().getString("item"));
+        note = DBAccess.fetchNotes().get(item);
+        noteTitle.setText(note.getNote_title());
+        noteDesc.setText(note.getNote_desc());
+        if(note.getNote_image()!= null){
+            cardImage.setVisibility(View.VISIBLE);
+            addImageView.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
+        }
+        selectedSubjectId = note.getSubId();
+        btSelectSubject.setText(DBAccess.fetchSubjectWhereSubjectID(note.getSubId()).getSubjectName());
     }
 
     private void handleAudio(View v) {

@@ -23,24 +23,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:fontFamily="@font/nunito_extrabold"
                 android:text="Subject :"
-                android:textColor="@color/gray" />
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Date :"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvTotalNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:text="Total Notes :"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

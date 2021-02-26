@@ -27,8 +27,11 @@
 
             <ImageView
                 android:id="@+id/noteImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/nunito"
+                    android:fontFamily="@font/nunito_semibold"
                     android:text="TextView"
                     android:textColor="@color/colorPrimary" />
 
@@ -59,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/nunito_semibold"
+                    android:fontFamily="@font/nunito_extrabold"
                     android:maxLines="2"
                     android:text="TextView"
                     android:textSize="18sp"
@@ -70,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/nunito"
+                    android:fontFamily="@font/nunito_semibold"
                     android:text="TextView"
                     android:textSize="18sp" />
 
@@ -78,7 +81,7 @@
                     android:id="@+id/txtNoteSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito"
+                    android:fontFamily="@font/nunito_semibold"
                     android:text="TextView"
                     android:textStyle="italic" />
             </LinearLayout>

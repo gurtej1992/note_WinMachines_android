@@ -35,8 +35,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.tvSubject.setText("Name: " + data.get(position).getSubjectName());
-        holder.tvDate.setText("Date: " + data.get(position).getDate().toString());
+        holder.tvSubject.setText(data.get(position).getSubjectName());
         RealmResults<Note> notes = DBAccess.fetchNotesWhereSubId(data.get(position).getSubId());
         holder.tvTotalNotes.setText("Total Notes: " + notes.size());
         holder.cvSubject.setOnClickListener(view -> {
@@ -67,7 +66,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.VH> {
         public VH(@NonNull View itemView) {
             super(itemView);
             tvSubject = itemView.findViewById(R.id.tvSubject);
-            tvDate = itemView.findViewById(R.id.tvDate);
             tvTotalNotes = itemView.findViewById(R.id.tvTotalNotes);
             cvSubject = itemView.findViewById(R.id.cvSubject);
 
