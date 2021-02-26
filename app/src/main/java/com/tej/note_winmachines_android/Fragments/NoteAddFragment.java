@@ -1,6 +1,7 @@
 package com.tej.note_winmachines_android.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -247,23 +248,26 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 .navigate(R.id.toHome);
     }
     void handleSave(){
-        HomeActivity home = (HomeActivity) getActivity();
-        audioURL = "XX";
-       /* LocationUtil.getLastLocation(requireContext(), location -> {
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-
-        });*/
-
-        if (HomeActivity.userLocation != null) {
-            longitude = HomeActivity.userLocation.getLongitude();
-            latitude = HomeActivity.userLocation.getLatitude();
+        String s;
+        if(note != null) {
+            //Update note
+            DBAccess.saveNote(note,noteTitle.getText().toString(), noteDesc.getText().toString(), audioURL,selectedImage, latitude, longitude, selectedSubjectId);
+       s = "You successfully updated a note.";
         }
-        DBAccess.saveNote(noteTitle.getText().toString(), noteDesc.getText().toString(), audioURL,selectedImage, latitude, longitude, selectedSubjectId);
-        clearAll();
+        else{
+            s = "You successfully added a note.";
+            HomeActivity home = (HomeActivity) getActivity();
+            audioURL = "XX";
+            if (HomeActivity.userLocation != null) {
+                longitude = HomeActivity.userLocation.getLongitude();
+                latitude = HomeActivity.userLocation.getLatitude();
+            }
+            DBAccess.saveNote(null,noteTitle.getText().toString(), noteDesc.getText().toString(), audioURL,selectedImage, latitude, longitude, selectedSubjectId);
+        }
+       clearAll();
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Success!!")
-                .setContentText("You successfully added a note.")
+                .setContentText(s)
                 .showCancelButton(true)
                 .setConfirmText("Yes")
                 .setConfirmClickListener(sweetAlertDialog -> {
@@ -275,12 +279,14 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
 
     }
-
     void clearAll() {
         noteTitle.getText().clear();
         noteDesc.getText().clear();
         audioURL = "";
         selectedImage = null;
+        cardImage.setVisibility(View.GONE);
+        selectedSubjectId = -1L;
+        btSelectSubject.setText(R.string.select_subject_btn);
     }
 
     @Override
