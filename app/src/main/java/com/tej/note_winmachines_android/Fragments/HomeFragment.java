@@ -66,8 +66,6 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         etsearch = rootView.findViewById(R.id.search_txt);
         txtTitle.setText(R.string.notes);
 
-
-
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,8 +85,13 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
 
         imgSearch.setOnClickListener(v -> {
-            // Toast.makeText(getContext(),"Search",Toast.LENGTH_SHORT).show();
-            etsearch.setVisibility(View.VISIBLE);
+            if(etsearch.getVisibility() == View.VISIBLE){
+                etsearch.setVisibility(View.GONE);
+            }
+            else{
+                etsearch.setVisibility(View.VISIBLE);
+            }
+
         });
         btnSubjects.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), Category.class);
