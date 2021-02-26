@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -122,6 +123,18 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     }
 
     private void sortSelected() {
+        if(adapter.isDate){
+            adapter.data = DBAccess.fetchNotesSortedNames();
+            notesRecycler.getAdapter().notifyDataSetChanged();
+            adapter.isDate = false;
+            Toast.makeText(getContext(),"Sort By Name",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            adapter.data = DBAccess.fetchNotesSortedDate();
+            notesRecycler.getAdapter().notifyDataSetChanged();
+            adapter.isDate = true;
+            Toast.makeText(getContext(),"Sort By Date",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -154,8 +167,8 @@ private void filter(String text) {
 //
 //        }
     }
-    adapter.data =  temp;
-    notesRecycler.getAdapter().notifyDataSetChanged();
+   // adapter.data =  temp;
+  //  notesRecycler.getAdapter().notifyDataSetChanged();
 }
 
 

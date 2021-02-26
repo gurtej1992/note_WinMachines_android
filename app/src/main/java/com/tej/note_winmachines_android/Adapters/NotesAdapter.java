@@ -31,6 +31,7 @@ import io.realm.RealmResults;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
     Context context;
+    public Boolean isDate = false;
     private final onNoteClicked mCallback;
     private final Boolean selectedMode = false;
     public RealmResults<Note> data;
@@ -65,7 +66,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         holder.txtSubject.setText(s);
         holder.txtDate.setText(Helper.ConvertDateToString(note.getDate_created()));
         if (note.getNote_image() != null){
+            holder.noteImg.setImageResource(0);
             holder.noteImg.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
+        }
+        else{
+            holder.noteImg.setImageResource(0);;
         }
         holder.noteCardView.setOnLongClickListener(v -> {
             mCallback.onLongClickItem(v, position);

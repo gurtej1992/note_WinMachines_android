@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tej.note_winmachines_android.DataLayer.DBAccess;
+import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
@@ -56,10 +57,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (getIntent().hasExtra("allNotes")) {
             RealmResults<Note> realmNotes = DBAccess.fetchNotes();
             for (int i = 0; i < realmNotes.size(); i++) {
+                Note note = realmNotes.get(i);
                 LatLng pos = new LatLng(realmNotes.get(i).getLatitude(), realmNotes.get(i).getLongitude());
                 String title = realmNotes.get(i).getNote_title();
+                String s = "Desc: "+note.getNote_desc()+"\nSubject: "+ DBAccess.fetchSubjectWhereSubjectID(note.getSubId()).getSubjectName() + "\nDate Created: "+note.getDate_created().toString();
+
                 marker1 = mMap.addMarker(new MarkerOptions().position(pos).title(title));
                 marker1.setTag(title);
+                marker1.setSnippet(s);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 5));
             }
         }
@@ -72,7 +77,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng(note.getLatitude(), note.getLongitude());
                 String title = note.getNote_title();
                 marker1 = mMap.addMarker(new MarkerOptions().position(latLng).title(title));
+                String s = "Desc: "+note.getNote_desc()+"\nSubject: "+ DBAccess.fetchSubjectWhereSubjectID(note.getSubId()).getSubjectName() + "\nDate Created: "+note.getDate_created().toString();
                 marker1.setTag(title);
+                marker1.setSnippet(s);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5));
             }
 

@@ -35,7 +35,7 @@ public class DBAccess {
         return realm.where(SubjectModel.class).findAll();
     }
     static public RealmResults<Note> fetchNotesSortedNames(){
-        return realm.where(Note.class).findAllSorted("note_title", Sort.DESCENDING);
+        return realm.where(Note.class).findAllSorted("note_title", Sort.ASCENDING);
     }
     static public RealmResults<Note> fetchNotesSortedDate(){
         return realm.where(Note.class).findAllSorted("date_created", Sort.DESCENDING);
