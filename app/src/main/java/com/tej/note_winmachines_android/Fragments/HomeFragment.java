@@ -41,7 +41,7 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragment extends Fragment implements onNoteClicked {
     Button btnAdd, btnMap, btnSubjects;
     TextView txtTitle;
-    ImageView imgSearch,imgCross;
+    ImageView imgSearch,imgCross,rightBarButton;
     RecyclerView notesRecycler;
     NotesAdapter adapter;
     EditText etsearch;
@@ -63,6 +63,9 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         btnAdd = rootView.findViewById(R.id.btnAdd);
         btnMap = rootView.findViewById(R.id.btnmap);
         imgSearch = rootView.findViewById(R.id.rightBarButton);
+        rightBarButton = rootView.findViewById(R.id.rightBarButton2);
+        rightBarButton.setImageResource(R.drawable.sorter);
+        rightBarButton.setVisibility(View.VISIBLE);
         imgCross = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.toolTitle);
         notesRecycler = rootView.findViewById(R.id.notesRecycler);
@@ -90,6 +93,9 @@ public class HomeFragment extends Fragment implements onNoteClicked {
             Intent intent = new Intent(getContext(), Category.class);
             startActivity(intent);
         });
+        rightBarButton.setOnClickListener(view -> {
+            sortSelected();
+        });
 
         imgSearch.setOnClickListener(v -> {
             if(searchLayout.getVisibility() == View.VISIBLE){
@@ -115,38 +121,40 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         return rootView;
     }
 
-   
-
-
-/*
-    private void filter(String text) {
-
-        //RealmResults<Note> filterdata = new ArrayList<Note>();
-
-        for (int i = 0; i < notesList.size(); i++) {
-
-            if (notesList.get(i).getNote_title().toLowerCase().contains(text.toLowerCase()) || notesList.get(i).getNote_title().toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filterdata.add(notesList.get(i));
-            }
-        }
-
-        notesAdapter = new NotesAdapter(getContext(), filterdata,this);
-        notesRecycler.setAdapter(notesAdapter);
+    private void sortSelected() {
 
     }
-*/
+
+
+    /*
+        private void filter(String text) {
+
+            //RealmResults<Note> filterdata = new ArrayList<Note>();
+
+            for (int i = 0; i < notesList.size(); i++) {
+
+                if (notesList.get(i).getNote_title().toLowerCase().contains(text.toLowerCase()) || notesList.get(i).getNote_title().toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdata.add(notesList.get(i));
+                }
+            }
+
+            notesAdapter = new NotesAdapter(getContext(), filterdata,this);
+            notesRecycler.setAdapter(notesAdapter);
+
+        }
+    */
 private void filter(String text) {
     listNotes =  DBAccess.fetchNotes();
-    List<Note> temp = new ArrayList();
+    RealmResults<Note> temp = null;
     for (Note n :listNotes) {
 
-        if(n.getNote_title().toLowerCase().contains(text.toLowerCase()) || n.getNote_desc().toLowerCase().contains(text.toLowerCase())){
-            temp.add(n);
-
-        }
+//        if(n.getNote_title().toLowerCase().contains(text.toLowerCase()) || n.getNote_desc().toLowerCase().contains(text.toLowerCase())){
+//            temp.
+//
+//        }
     }
-    adapter.data = (RealmResults<Note>) temp;
+    adapter.data =  temp;
     notesRecycler.getAdapter().notifyDataSetChanged();
 }
 

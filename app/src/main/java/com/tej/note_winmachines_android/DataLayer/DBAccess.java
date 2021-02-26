@@ -13,6 +13,7 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class DBAccess {
 
@@ -32,6 +33,12 @@ public class DBAccess {
     static public RealmResults<SubjectModel> fetchSubjects() {
 
         return realm.where(SubjectModel.class).findAll();
+    }
+    static public RealmResults<Note> fetchNotesSortedNames(){
+        return realm.where(Note.class).findAllSorted("note_title", Sort.DESCENDING);
+    }
+    static public RealmResults<Note> fetchNotesSortedDate(){
+        return realm.where(Note.class).findAllSorted("date_created", Sort.DESCENDING);
     }
     static public SubjectModel fetchSubjectWhereSubjectID(Long subjectID) {
         RealmQuery<SubjectModel> query = realm.where(SubjectModel.class);
