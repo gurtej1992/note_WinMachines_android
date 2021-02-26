@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -36,6 +38,7 @@ import com.tej.note_winmachines_android.R;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
@@ -313,7 +316,13 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             return true;
         }
         else if(menuItem.getItemId() == R.id.file_item){
-            Toast.makeText(getContext(),"File",Toast.LENGTH_SHORT).show();
+            //String filePath = songs.get(viewPosition).getPath();
+//            Uri uri = FileProvider.getUriForFile(getContext(), "com.simplemusicplayer.fileprovider", new File(filePath));
+//            Intent share = new Intent(Intent.ACTION_SEND);
+//            share.setType("audio/*");
+//            share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            share.putExtra(Intent.EXTRA_STREAM, uri);
+//            mContext.startActivity(Intent.createChooser(share, "Share Sound File"));
             return true;
         }
         else{
