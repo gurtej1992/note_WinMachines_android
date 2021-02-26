@@ -38,18 +38,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="15dp"
-
+        android:background="@mipmap/navigation"
         app:layout_constraintBottom_toTopOf="@id/btnAdd"
-        app:layout_constraintEnd_toEndOf="@id/btnAdd"
-        app:layout_constraintStart_toStartOf="@id/btnAdd" />
-
-    <Button
-        android:id="@+id/btnSubjects"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/test"
-        app:layout_constraintBottom_toTopOf="@id/btnmap"
         app:layout_constraintEnd_toEndOf="@id/btnAdd"
         app:layout_constraintStart_toStartOf="@id/btnAdd" />
 

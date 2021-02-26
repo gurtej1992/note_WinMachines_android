@@ -1,7 +1,10 @@
 package com.tej.note_winmachines_android.Activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -26,7 +29,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static final String TAG = "MapsActivity";
 
-
+    TextView txtTitle;
+    ImageView imgSearch,leftBarButton;
     private Marker marker1;
 
     @Override
@@ -39,7 +43,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        imgSearch = findViewById(R.id.rightBarButton);
+        imgSearch.setVisibility(View.GONE);
+        leftBarButton = findViewById(R.id.leftBarButton);
+        txtTitle = findViewById(R.id.toolTitle);
+        leftBarButton.setImageResource(R.mipmap.back);
+        leftBarButton.setOnClickListener(view1 -> finish());
+        txtTitle.setText("Open Map");
     }
 
     private void getIntentData() {

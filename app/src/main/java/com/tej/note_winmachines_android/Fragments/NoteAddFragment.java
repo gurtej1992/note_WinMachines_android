@@ -140,11 +140,60 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             cardImage.setVisibility(View.VISIBLE);
             addImageView.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
         }
+        if(note.getNote_audio() != null){
+            if (note.getNote_audio().equals("record")){
+                audioPanel.setVisibility(View.VISIBLE);
+                btnAudio.setTag("StopRecord");
+                btnAudio.setImageResource(R.mipmap.play_btn);
+            }
+
+        }
         selectedSubjectId = note.getSubId();
         btSelectSubject.setText(DBAccess.fetchSubjectWhereSubjectID(note.getSubId()).getSubjectName());
     }
 
     private void handleAudio(View v) {
+        ImageButton i = (ImageButton) v;
+        //RECORD AUDIO START
+        if (v.getTag() == "Record") {
+            i.setImageResource(R.mipmap.stop_btn);
+            Toast.makeText(getContext(), "Start Recording", Toast.LENGTH_SHORT).show();
+//            try {
+//               // r.start();
+                i.setTag("StopRecord");
+//            } catch (IOException e) {
+//                Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                e.printStackTrace();
+//            }
+        }
+        //RECORD AUDIO STOP
+        else if (i.getTag() == "StopRecord") {
+            Toast.makeText(getContext(), "Stop Recording", Toast.LENGTH_SHORT).show();
+            btnAudio.setTag("Play");
+            i.setImageResource(R.mipmap.play_btn);
+          //  r.stop();
+            audioURL  = "record";
+        } else if (i.getTag() == "Play") {
+            Toast.makeText(getContext(), "Start Playing", Toast.LENGTH_SHORT).show();
+            btnAudio.setTag("PlayStop");
+//            try {
+//
+//                r.playOrStopRecording(r.path);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            i.setImageResource(R.mipmap.stop_btn);
+        } else {
+            try {
+                r.playOrStopRecording(audioURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getContext(), "Stop Playing", Toast.LENGTH_SHORT).show();
+            i.setTag("Record");
+        }
+    }
+    private void handleAudio2(View v) {
         ImageButton i = (ImageButton) v;
         //RECORD AUDIO START
         if (v.getTag() == "Record") {
@@ -163,11 +212,13 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             Toast.makeText(getContext(), "Stop Recording", Toast.LENGTH_SHORT).show();
             btnAudio.setTag("Play");
             i.setBackgroundResource(R.mipmap.play_btn);
-            r.stop();
+              r.stop();
+            audioURL  = "record";
         } else if (i.getTag() == "Play") {
             Toast.makeText(getContext(), "Start Playing", Toast.LENGTH_SHORT).show();
+            btnAudio.setTag("PlayStop");
             try {
-                btnAudio.setTag("PlayStop");
+
                 r.playOrStopRecording(r.path);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -175,7 +226,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             i.setBackgroundResource(R.mipmap.stop_btn);
         } else {
             try {
-                r.playOrStopRecording(r.path);
+                r.playOrStopRecording(audioURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -183,36 +234,6 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             i.setTag("Record");
         }
     }
-//
-//        if (r.isRecording){
-////            btnAudio.setTag("Play");
-////            v.setBackgroundResource(R.mipmap.play_btn);
-////            //Its Recording
-////                r.stop();
-//        }
-//        else {
-//            //Not Recording
-//            if(r.isRecordingDone){
-//                if(i.getTag() == "PlayStop"){
-//                    try {
-//                        r.playOrStopRecording(r.path);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Toast.makeText(getContext(),"Stop Playing",Toast.LENGTH_SHORT).show();
-//                    v.setTag("Record");
-//                }
-//                else{
-//                    Toast.makeText(getContext(),"Playing",Toast.LENGTH_SHORT).show();
-//                    btnAudio.setTag("PlayStop");
-//                    try {
-//                        r.playOrStopRecording(r.path);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    v.setBackgroundResource(R.mipmap.stop_btn);
-//                }
-//            }
 
 
     @Override
@@ -227,6 +248,8 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
                     Uri selectedMusicUri = data.getData();
                     if (selectedMusicUri != null){
                          audioURL = getRealPathFromURI(getContext(), selectedMusicUri);
+                        btnAudio.setTag("StopRecord");
+                        btnAudio.setImageResource(R.mipmap.play_btn);
                     }
                 }
         }
@@ -348,6 +371,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             return true;
         }
         else{
+            handleAudio2(btnAudio);
             Toast.makeText(getContext(),"No",Toast.LENGTH_SHORT).show();
             return false;
         }

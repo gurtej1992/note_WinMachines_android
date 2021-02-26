@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,8 +39,7 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragment extends Fragment implements onNoteClicked {
     Button btnAdd, btnMap, btnSubjects;
     TextView txtTitle;
-    ImageView imgSearch;
-    ImageView imgCross;
+    ImageView imgSearch,imgCross;
     RecyclerView notesRecycler;
     NotesAdapter adapter;
     EditText etsearch;
@@ -61,7 +59,6 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
         btnAdd = rootView.findViewById(R.id.btnAdd);
-        btnSubjects = rootView.findViewById(R.id.btnSubjects);
         btnMap = rootView.findViewById(R.id.btnmap);
         imgSearch = rootView.findViewById(R.id.rightBarButton);
         imgCross = rootView.findViewById(R.id.leftBarButton);
@@ -70,7 +67,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         etsearch = rootView.findViewById(R.id.search_txt);
         searchLayout = rootView.findViewById(R.id.search_layout);
         txtTitle.setText(R.string.notes);
-        imgCross.setVisibility(View.GONE);
+        imgCross.setImageResource(R.drawable.menubtn);
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,7 +84,10 @@ public class HomeFragment extends Fragment implements onNoteClicked {
                 adapter.getFilter().filter(s.toString());
             }
         });
-
+        imgCross.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(), Category.class);
+            startActivity(intent);
+        });
 
         imgSearch.setOnClickListener(v -> {
             if(searchLayout.getVisibility() == View.VISIBLE){
@@ -97,10 +97,6 @@ public class HomeFragment extends Fragment implements onNoteClicked {
                 searchLayout.setVisibility(View.VISIBLE);
             }
 
-        });
-        btnSubjects.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), Category.class);
-            startActivity(intent);
         });
 
         btnMap.setOnClickListener(v -> {
