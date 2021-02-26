@@ -22,8 +22,6 @@ import androidx.core.app.ActivityCompat;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
 
-//c1abcb746f4020452411d1ac05394f598b471f52
-
 public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     LocationManager locationManager;
