@@ -10,16 +10,16 @@
     <include
         android:id="@+id/custom_toolbar"
         layout="@layout/custom_toolbar" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/etsearch"
+    <include layout="@layout/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/notesRecycler"
+        android:id="@+id/search_layout"
+        android:layout_margin="@dimen/cardview_margin_lr"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecycler"
@@ -29,8 +29,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="@dimen/cardview_margin_lr"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_layout" />
 
     <Button
         android:id="@+id/btnmap"
