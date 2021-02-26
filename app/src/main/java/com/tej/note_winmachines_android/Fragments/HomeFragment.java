@@ -3,10 +3,13 @@ package com.tej.note_winmachines_android.Fragments;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +32,6 @@ import com.tej.note_winmachines_android.R;
 
 import java.util.ArrayList;
 
-import nz.co.trademe.covert.Covert;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,7 +42,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     ImageView imgCross;
     RecyclerView notesRecycler;
     NotesAdapter adapter;
-    SearchView etsearch;
+    EditText etsearch;
     Dialog dialog;
 
     ArrayList<Note> notesObj = new ArrayList<Note>();
@@ -61,20 +63,25 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         imgCross = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.toolTitle);
         notesRecycler = rootView.findViewById(R.id.notesRecycler);
-        etsearch = rootView.findViewById(R.id.etsearch);
+        etsearch = rootView.findViewById(R.id.search_txt);
         txtTitle.setText(R.string.notes);
 
-        etsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+        etsearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String queryString) {
-                adapter.getFilter().filter(queryString);
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String queryString) {
-                adapter.getFilter().filter(queryString);
-                return false;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                adapter.getFilter().filter(s.toString());
             }
         });
 
