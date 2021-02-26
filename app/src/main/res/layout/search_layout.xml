@@ -12,7 +12,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:id="@+id/search_icon"
             android:paddingTop="@dimen/cardview_margin_lr"
             android:paddingBottom="@dimen/cardview_margin_lr"
