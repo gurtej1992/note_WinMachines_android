@@ -2,11 +2,15 @@ package com.tej.note_winmachines_android.Fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,9 +26,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.CursorLoader;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.cazaea.sweetalert.SweetAlertDialog;
@@ -45,6 +51,7 @@ import java.net.URI;
 import static android.app.Activity.RESULT_OK;
 
 public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
+    private static final int SELECT_MUSIC = 111;
     TextView txtTitle;
     ImageView rightBarButton, leftBarButton, rightBarButton2,addImageView;
     EditText noteTitle, noteDesc;
@@ -56,6 +63,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
     Note note;
     Long selectedSubjectId = -1L;
     CardView cardImage;
+    ConstraintLayout audioPanel;
     AudioRecorder r;
     // Requesting permission to RECORD_AUDIO
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -77,6 +85,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         leftBarButton = rootView.findViewById(R.id.leftBarButton);
         txtTitle = rootView.findViewById(R.id.toolTitle);
         btSelectSubject = rootView.findViewById(R.id.btSelectSubject);
+        audioPanel = rootView.findViewById(R.id.audioPanel);
         txtTitle.setText(R.string.addNote);
         leftBarButton.setImageResource(R.mipmap.back);
         rightBarButton.setImageResource(R.mipmap.save);
@@ -121,6 +130,7 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
     }
 
     private void getDetailsOfExistingNote() {
+        btnDelete.setVisibility(View.VISIBLE);
         assert getArguments() != null;
         int item = Integer.parseInt(getArguments().getString("item"));
         note = DBAccess.fetchNotes().get(item);
@@ -212,6 +222,23 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
             selectedSubjectId = data.getLongExtra("selectedSubjectId", -1L);
             btSelectSubject.setText(data.getStringExtra("selectedSubjectName"));
         }
+        else{
+            if (resultCode == RESULT_OK && requestCode == SELECT_MUSIC) {
+                    Uri selectedMusicUri = data.getData();
+                    if (selectedMusicUri != null){
+                        String pathFromUri = getRealPathFromURI(getContext(), selectedMusicUri);
+                        MediaPlayer mp = new MediaPlayer();
+                        try {
+                            mp.setDataSource(getContext(), Uri.parse(pathFromUri));
+                            mp.prepare();
+                            mp.start();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        }
     }
 
     void handleDelete() {
@@ -291,6 +318,14 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         selectedSubjectId = -1L;
         btSelectSubject.setText(R.string.select_subject_btn);
     }
+    private String getRealPathFromURI(Context context, Uri contentUri) {
+        String[] projection = { MediaStore.Audio.Media.DATA };
+        CursorLoader loader = new CursorLoader(context, contentUri, projection, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -313,16 +348,13 @@ public class NoteAddFragment extends Fragment implements PopupMenu.OnMenuItemCli
         }
         else if(menuItem.getItemId() == R.id.voice_item){
             Toast.makeText(getContext(),"Voice",Toast.LENGTH_SHORT).show();
+            audioPanel.setVisibility(View.VISIBLE);
             return true;
         }
         else if(menuItem.getItemId() == R.id.file_item){
-            //String filePath = songs.get(viewPosition).getPath();
-//            Uri uri = FileProvider.getUriForFile(getContext(), "com.simplemusicplayer.fileprovider", new File(filePath));
-//            Intent share = new Intent(Intent.ACTION_SEND);
-//            share.setType("audio/*");
-//            share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//            share.putExtra(Intent.EXTRA_STREAM, uri);
-//            mContext.startActivity(Intent.createChooser(share, "Share Sound File"));
+            Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i,SELECT_MUSIC);
+            audioPanel.setVisibility(View.VISIBLE);
             return true;
         }
         else{

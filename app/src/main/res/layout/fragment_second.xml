@@ -53,6 +53,7 @@
                     android:id="@+id/txtNoteTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="@string/title"
                     android:inputType="textPersonName" />
@@ -61,8 +62,12 @@
                     android:id="@+id/btSelectSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-android:text="Select Subject"
-                    android:textAllCaps="false"/>
+                    android:layout_marginBottom="5dp"
+                    android:background="#A061FA"
+                    android:text="@string/select_subject_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
                 <EditText
                     android:id="@+id/txtNoteDesc"
                     android:layout_width="match_parent"
@@ -103,6 +108,7 @@ android:text="Select Subject"
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/audioPanel"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/cardview_margin_lr"
@@ -112,7 +118,8 @@ android:text="Select Subject"
             android:layout_marginRight="@dimen/cardview_margin_lr"
             android:layout_marginBottom="@dimen/cardview_margin_tb"
             android:layout_weight="0"
-            android:background="@mipmap/topbar">
+            android:background="@mipmap/topbar"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/btnAudio"
@@ -130,7 +137,8 @@ android:text="Select Subject"
             android:id="@+id/buttonDeleteNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_note" />
+            android:text="@string/delete_note"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
