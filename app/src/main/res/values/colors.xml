@@ -8,6 +8,7 @@
     <color name="gray">#BA494747</color>
     <color name="grey">#dcdc</color>
     <color name="ThemeColor">#A061FA</color>
+    <color name="Danger">#F50057</color>
 
 
 </resources>

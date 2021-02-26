@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/view_50"
             android:layout_gravity="right"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/ThemeColor"
             android:orientation="horizontal"
             android:id="@+id/linear"
             >
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/cross_white" />
+                android:src="@mipmap/cross" />
         </RelativeLayout>
         <EditText
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:textColor="@color/colorWhite"
             android:id="@+id/btAddSubject"
             android:layout_marginLeft="@dimen/view_20"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/ThemeColor"
             android:layout_marginBottom="@dimen/view_15"
             android:layout_marginTop="@dimen/view_20"
             android:layout_marginRight="@dimen/view_20"

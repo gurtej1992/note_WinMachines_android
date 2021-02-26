@@ -11,12 +11,13 @@
 
 
         <ImageView
+            android:id="@+id/search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/search_icon"
+            android:background="@mipmap/search"
+            android:paddingLeft="@dimen/cardview_margin_lr"
             android:paddingTop="@dimen/cardview_margin_lr"
-            android:paddingBottom="@dimen/cardview_margin_lr"
-            android:paddingLeft="@dimen/cardview_margin_lr"/>
+            android:paddingBottom="@dimen/cardview_margin_lr" />
 
         <EditText
             android:layout_width="match_parent"

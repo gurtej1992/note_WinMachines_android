@@ -137,7 +137,12 @@
             android:id="@+id/buttonDeleteNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_10"
+            android:layout_marginEnd="@dimen/view_10"
+            android:background="@color/Danger"
+            android:fontFamily="@font/nunito_extrabold"
             android:text="@string/delete_note"
+            android:textColor="@color/colorWhite"
             android:visibility="gone" />
     </LinearLayout>
 
