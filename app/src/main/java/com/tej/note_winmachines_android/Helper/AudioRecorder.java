@@ -26,11 +26,11 @@ public class AudioRecorder {
             path += ".3gp";
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return Environment.getStorageDirectory().getAbsolutePath()
+            return Environment.getDownloadCacheDirectory().getAbsolutePath()
                     + path;
         }
         else{
-            return Environment.getExternalStorageDirectory().getAbsolutePath()
+            return Environment.getDownloadCacheDirectory().getAbsolutePath()
                     + path;
         }
     }
@@ -40,12 +40,6 @@ public class AudioRecorder {
         if (!state.equals(android.os.Environment.MEDIA_MOUNTED)) {
             throw new IOException("SD Card is not mounted.  It is " + state
                     + ".");
-        }
-
-        // make sure the directory we plan to store the recording in exists
-        File directory = new File(path).getParentFile();
-        if (directory != null && !directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Path to file could not be created.");
         }
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
