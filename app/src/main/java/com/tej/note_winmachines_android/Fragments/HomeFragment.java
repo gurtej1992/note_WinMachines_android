@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import io.realm.RealmResults;
+
 import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment implements onNoteClicked {
@@ -81,7 +83,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
             @Override
             public void afterTextChanged(Editable s) {
-                adapter.getFilter().filter(s.toString());
+                filter(s.toString());
             }
         });
         imgCross.setOnClickListener(v->{
@@ -134,6 +136,19 @@ public class HomeFragment extends Fragment implements onNoteClicked {
 
     }
 */
+private void filter(String text) {
+    listNotes =  DBAccess.fetchNotes();
+    List<Note> temp = new ArrayList();
+    for (Note n :listNotes) {
+
+        if(n.getNote_title().toLowerCase().contains(text.toLowerCase()) || n.getNote_desc().toLowerCase().contains(text.toLowerCase())){
+            temp.add(n);
+
+        }
+    }
+    adapter.data = (RealmResults<Note>) temp;
+    notesRecycler.getAdapter().notifyDataSetChanged();
+}
 
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
