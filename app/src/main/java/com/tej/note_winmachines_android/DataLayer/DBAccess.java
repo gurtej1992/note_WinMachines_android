@@ -33,7 +33,11 @@ public class DBAccess {
 
         return realm.where(SubjectModel.class).findAll();
     }
-
+    static public SubjectModel fetchSubjectWhereSubjectID(Long subjectID) {
+        RealmQuery<SubjectModel> query = realm.where(SubjectModel.class);
+        query = query.equalTo("subId", subjectID);
+        return query.findFirst();
+    }
     static public void saveNote(String noteTitle, String noteDesc, String noteAudio, Bitmap noteImage, Double latitude, Double longitude, Long selectedSubjectId) {
 
         realm.executeTransaction(realm -> {
@@ -78,10 +82,6 @@ public class DBAccess {
                 realmDB_class.setSubId(subId);
             }
         });
-
-      /*  realm.executeTransaction(realm -> {
-            realm.insertOrUpdate(note);
-        });*/
     }
 
     static public void deleteNote(Note note, Context context) {

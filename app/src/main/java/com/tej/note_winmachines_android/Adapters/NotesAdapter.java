@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
+import com.tej.note_winmachines_android.DataLayer.DBAccess;
 import com.tej.note_winmachines_android.Helper.Helper;
 import com.tej.note_winmachines_android.Model.Note;
 import com.tej.note_winmachines_android.R;
@@ -59,28 +61,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         holder.bind(note);
         holder.txtTitle.setText(note.getNote_title());
         holder.txtDesc.setText(note.getNote_desc());
+        String s = "Subject:" + DBAccess.fetchSubjectWhereSubjectID(note.getSubId()).getSubjectName();
+        holder.txtSubject.setText(s);
+        holder.txtDate.setText(Helper.ConvertDateToString(note.getDate_created()));
         if (note.getNote_image() != null){
             holder.noteImg.setImageBitmap(Helper.ByteToImage(note.getNote_image()));
         }
-
-//        holder.tvLat.setText("Latitude: " + data.get(position).getLatitude());
-//        holder.tvLong.setText("Longitude: " + data.get(position).getLongitude());
         holder.noteCardView.setOnLongClickListener(v -> {
             mCallback.onLongClickItem(v, position);
-            // mCallback.onLongClickItem(view, position);
-//            ((HomeActivity) context).mapdialog(data.get(position), false);
-
             return false;
         });
         holder.noteCardView.setOnClickListener(view -> mCallback.onClickItem(view, position));
-        List<Bitmap> img = new ArrayList();
-        img.add(Helper.ByteToImage(note.getNote_image()));
-//        holder.noteImg.setOnClickListener(v->{
-//            new ImageViewer.Builder(context, img)
-//                    .setStartPosition(0)
-//                    .show();
-//        });
-
 
     }
 
@@ -124,7 +115,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     public static class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        TextView txtTitle, txtDesc, tvLat, tvLong;
+        TextView txtTitle, txtDesc, txtSubject, txtDate;
         ImageView noteImg, selectImg;
         onNoteClicked mCallback;
         CardView noteCardView;
@@ -133,8 +124,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             super(itemView);
             txtTitle = itemView.findViewById(R.id.toolTitle);
             txtDesc = itemView.findViewById(R.id.txtDesc);
-            tvLat = itemView.findViewById(R.id.tvLat);
-            tvLong = itemView.findViewById(R.id.tvLong);
+            txtSubject = itemView.findViewById(R.id.txtNoteSubject);
+            txtDate = itemView.findViewById(R.id.txtNoteDate);
             noteImg = itemView.findViewById(R.id.noteImg);
             selectImg = itemView.findViewById(R.id.imgNoteSelect);
             noteCardView = itemView.findViewById(R.id.noteCardView);

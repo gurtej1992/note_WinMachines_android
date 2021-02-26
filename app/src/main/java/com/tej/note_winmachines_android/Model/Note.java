@@ -20,6 +20,9 @@ public class Note extends RealmObject implements Serializable {
     private String note_audio;
     private byte[] note_image;
     private Date date_created;
+    private Date date_modified;
+    private double latitude;
+    private double longitude;
 
     public byte[] getNote_image() {
         return note_image;
@@ -29,14 +32,6 @@ public class Note extends RealmObject implements Serializable {
         this.note_image = note_image;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Long getSubId() {
         return subId;
     }
@@ -44,11 +39,6 @@ public class Note extends RealmObject implements Serializable {
     public void setSubId(Long subId) {
         this.subId = subId;
     }
-
-    private Date date_modified;
-    private double latitude;
-    private double longitude;
-    private Date date;
 
     public Long getNote_id() {
         return note_id;
