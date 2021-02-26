@@ -41,12 +41,6 @@ public class AudioRecorder {
             throw new IOException("SD Card is not mounted.  It is " + state
                     + ".");
         }
-
-        // make sure the directory we plan to store the recording in exists
-        File directory = new File(path).getParentFile();
-        if (directory != null && !directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Path to file could not be created.");
-        }
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);

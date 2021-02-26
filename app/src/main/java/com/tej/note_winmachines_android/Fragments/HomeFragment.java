@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements onNoteClicked {
         etsearch = rootView.findViewById(R.id.search_txt);
         searchLayout = rootView.findViewById(R.id.search_layout);
         txtTitle.setText(R.string.notes);
-
+        imgCross.setVisibility(View.GONE);
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -191,17 +191,20 @@ public class HomeFragment extends Fragment implements onNoteClicked {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK) {
-//            note.setSubId(data.getLongExtra("selectedSubjectId", -1L));
-            DBAccess.updateNote(note.getNote_id(),data.getLongExtra("selectedSubjectId", -1L));
-            new SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Success!!")
-                    .setContentText("You successfully moved a note.")
-                    .showCancelButton(true)
-                    .setConfirmText("Yes")
-                    .setConfirmClickListener(sweetAlertDialog -> {
-                        sweetAlertDialog.dismissWithAnimation();
-                    })
-                    .show();
+            long id = data.getLongExtra("selectedSubjectId", -1L);
+            if(id != -1L){
+                DBAccess.updateNote(note.getNote_id(),id);
+                new SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Success!!")
+                        .setContentText("You successfully moved a note.")
+                        .showCancelButton(true)
+                        .setConfirmText("Yes")
+                        .setConfirmClickListener(sweetAlertDialog -> {
+                            sweetAlertDialog.dismissWithAnimation();
+                        })
+                        .show();
+            }
+
         }
     }
 }
